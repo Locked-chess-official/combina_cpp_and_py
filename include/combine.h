@@ -12,5 +12,5 @@ std::string combine(std::string cpp_code, std::string py_code, bool use_double=t
 #if false
 """
 from .write_cpp_combina_to_py import combina_cpp_and_py as combine
-from.write_cpp_combina_to_py import main
+from .write_cpp_combina_to_py import main
 #endif
