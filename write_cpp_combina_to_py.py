@@ -1,6 +1,14 @@
-def combina_cpp_and_py(cpp_code: str, py_code: str):
-    return f"""
+def combina_cpp_and_py(cpp_code: str, py_code: str, use_double: bool=True):
+    if use_double:
+        return f'''#if false
+r"""
+#endif
+{cpp_code}
 #if false
+"""
+{py_code}
+#endif'''
+    return f"""#if false
 r'''
 #endif
 {cpp_code}
@@ -42,17 +50,17 @@ def save_file(content):
             return True
     return False
 
-def main():
+def main(use_double=True):
     import tkinter as tk
     from tkinter import messagebox
     
     # 选择C++文件
-    cpp_path = select_file("选择C++文件")
+    cpp_path = select_file("Choose cpp file")
     if not cpp_path:
         return
     
     # 选择Python文件
-    py_path = select_file("选择Python文件")
+    py_path = select_file("Choose py file")
     if not py_path:
         return
     
@@ -61,17 +69,26 @@ def main():
     py_code = read_file(py_path)
     
     if cpp_code is None or py_code is None:
-        messagebox.showerror("错误", "读取文件失败")
+        messagebox.showerror("Error", "Cannot read the file.")
         return
     
     # 合并代码
-    combined_code = combina_cpp_and_py(cpp_code, py_code)
+    combined_code = combina_cpp_and_py(cpp_code, py_code, use_double)
     
     # 保存结果
     if save_file(combined_code):
-        messagebox.showinfo("成功", "文件合并并保存成功！")
+        messagebox.showinfo("Success", "The code has been combined！")
     else:
-        messagebox.showwarning("取消", "保存操作已取消")
+        messagebox.showwarning("Cancel", "Saving has been canceled.")
 
 if __name__ == '__main__':
-    main()
+    while True:
+        a = input("Use double?(Y/n)")
+        if a == 'Y':
+            main(True)
+            break
+        elif a == 'n':
+            main(False)
+            break
+        else:
+            print('Invalid input!')
