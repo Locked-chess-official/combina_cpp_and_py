@@ -59,3 +59,9 @@ The code will be combined in the following way:
 3. When run c++, the {$pythoncode} block will be ignored due to "#if false" and "#endif".
 4. When run python, the {$cppcode} block will be ignored due to "#" and " r"""""" ".
 </pre>
+
+## Warning
+
+<pre>
+Don't use the code like the result code, or there will be ERROR due to special statement.
+</pre>
