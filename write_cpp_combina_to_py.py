@@ -1,4 +1,14 @@
-def combina_cpp_and_py(cpp_code: str, py_code: str, use_double: bool=True):
+import warnings
+def combina_cpp_and_py(cpp_code: str, py_code: str, use_double: bool=True) -> str:
+    """
+    Ensure that no "\'''" or "\""\"" in your c++ code and no "#endif" in your python code.
+    """
+    if '"""' in cpp_code or "'''" in cpp_code:
+        warnings.warn("the code may be wrong due to the \'\'\' or \"\"\" in cpp_code",
+                      SyntaxWarning)
+    if '#endif' in py_code:
+        warnings.warn("the code may be wrong due to '#endif' in py_code",
+                      SyntaxWarning)
     if use_double:
         return f'''#if false
 r"""
@@ -51,6 +61,11 @@ def save_file(content):
     return False
 
 def main(use_double=True):
+    """
+    Open the file and combine to new file.
+    First open cpp then py.
+    If the system is not windows, it may doesn't work.
+    """
     import tkinter as tk
     from tkinter import messagebox
     
